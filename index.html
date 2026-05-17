@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Honeypot Dashboard</title>
+    <style>
+        body { background: #1a1a2e; color: #00ff88; font-family: monospace; padding: 20px; }
+        h1 { color: #ff6b6b; }
+        h2 { color: #ffd93d; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th { background: #16213e; padding: 10px; color: #ffd93d; }
+        td { padding: 8px; border-bottom: 1px solid #333; }
+        .count { font-size: 2em; color: #00ff88; }
+    </style>
+</head>
+<body>
+    <h1>🍯 Honeypot Dashboard</h1>
+    <h2>Total Login Attempts: <span class="count">{{ logins|length }}</span></h2>
+    <h2>Total Commands: <span class="count">{{ commands|length }}</span></h2>
+
+    <h2>Login Attempts</h2>
+    <table>
+        <tr><th>Time</th><th>IP</th><th>Username</th><th>Password</th></tr>
+        {% for l in logins %}
+        <tr>
+            <td>{{ l.timestamp }}</td>
+            <td>{{ l.src_ip }}</td>
+            <td>{{ l.username }}</td>
+            <td>{{ l.password }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Commands Used</h2>
+    <table>
+        <tr><th>Time</th><th>IP</th><th>Command</th></tr>
+        {% for c in commands %}
+        <tr>
+            <td>{{ c.timestamp }}</td>
+            <td>{{ c.src_ip }}</td>
+            <td>{{ c.input }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
